@@ -5,10 +5,10 @@ import joblib
 from sklearn.model_selection import train_test_split, GridSearchCV, cross_val_score
 from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import StandardScaler, PolynomialFeatures
-from sklearn.metrics import log_loss, accuracy_score, roc_curve, auc
+from sklearn.metrics import log_loss, accuracy_score, roc_curve, auc, confusion_matrix, precision_score, recall_score, f1_score
 from imblearn.over_sampling import SMOTE
 
-merged_data = pd.read_csv("final_merged_data_with_work_metrics.csv")
+merged_data = pd.read_csv("datas/final_merged_data_with_work_metrics.csv")
 
 y = merged_data["Attrition"]
 X = merged_data.drop(columns=["Attrition", "EmployeeID"])
@@ -102,6 +102,8 @@ print(f"Moyenne des scores : {np.mean(cv_scores):.4f}")
 print(f"Écart-type des scores : {np.std(cv_scores):.4f}")
 
 y_test_pred_prob = best_model.predict_proba(X_test)[:, 1]
+y_test_pred = best_model.predict(X_test)
+
 fpr, tpr, thresholds = roc_curve(y_test, y_test_pred_prob)
 roc_auc = auc(fpr, tpr)
 
@@ -115,6 +117,26 @@ plt.legend(loc="lower right")
 plt.grid()
 plt.savefig("graphique/roc_curve.png")
 plt.show()
+
+conf_matrix = confusion_matrix(y_test, y_test_pred)
+plt.figure(figsize=(8, 6))
+plt.matshow(conf_matrix, cmap=plt.cm.Blues, alpha=0.8, fignum=1)
+for i in range(conf_matrix.shape[0]):
+    for j in range(conf_matrix.shape[1]):
+        plt.text(x=j, y=i, s=conf_matrix[i, j], va='center', ha='center')
+plt.title("Confusion Matrix")
+plt.xlabel("Predicted Labels")
+plt.ylabel("True Labels")
+plt.savefig("graphique/confusion_matrix.png")
+plt.show()
+
+precision = precision_score(y_test, y_test_pred)
+recall = recall_score(y_test, y_test_pred)
+f1 = f1_score(y_test, y_test_pred)
+
+print(f"Precision: {precision:.4f}")
+print(f"Recall: {recall:.4f}")
+print(f"F1-Score: {f1:.4f}")
 
 top_10_people = merged_data.drop(columns=["Attrition", "EmployeeID"]).iloc[:10]
 top_10_people_poly = poly.transform(top_10_people)
