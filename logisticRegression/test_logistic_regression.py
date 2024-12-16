@@ -8,7 +8,7 @@ from sklearn.preprocessing import StandardScaler, PolynomialFeatures
 from sklearn.metrics import log_loss, accuracy_score, roc_curve, auc, confusion_matrix, precision_score, recall_score, f1_score
 from imblearn.over_sampling import SMOTE
 
-merged_data = pd.read_csv("datas/final_merged_data_with_work_metrics.csv")
+merged_data = pd.read_csv("datas\\final_merged_data.csv")
 
 y = merged_data["Attrition"]
 X = merged_data.drop(columns=["Attrition", "EmployeeID"])
