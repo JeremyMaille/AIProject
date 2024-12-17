@@ -17,7 +17,7 @@ from imblearn.over_sampling import SMOTE
 # ------------------------------------------
 # DATA LOADING AND PREPARATION
 # ------------------------------------------
-merged_data = pd.read_csv("final_merged_data_with_work_metrics_delete.csv")
+merged_data = pd.read_csv("../datas/final_merged_data_with_work_metrics_delete.csv")
 y = merged_data["Attrition"]
 X = merged_data.drop(columns=["Attrition", "EmployeeID"])
 
@@ -179,4 +179,5 @@ probabilities = best_model.predict_proba(top_10_people_scaled)[:, 1]
 
 print("Predictions for the First 10 People:")
 for i, (pred, prob) in enumerate(zip(predictions, probabilities)):
+    prob = (prob - 0.5) * 2
     print(f"Person {i+1}: Will Leave the Company: {'Yes' if pred == 1 else 'No'}, Probability: {prob:.2f}")
