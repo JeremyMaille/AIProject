@@ -2,32 +2,18 @@ import pandas as pd
 import numpy as np
 
 # Charger les données
-general_data = pd.read_csv("general_data.csv")
-manager_survey_data = pd.read_csv("manager_survey_data.csv")
-employee_survey_data = pd.read_csv("employee_survey_data.csv")
-in_time = pd.read_csv("in_time.csv")
-out_time = pd.read_csv("out_time.csv")
-
-# Aperçu des premières lignes des fichiers
-general_data.head()
-manager_survey_data.head()
-employee_survey_data.head()
-in_time.head()
-out_time.head()
+general_data = pd.read_csv("datas//general_data.csv")
+manager_survey_data = pd.read_csv("datas//manager_survey_data.csv")
+employee_survey_data = pd.read_csv("datas//employee_survey_data.csv")
+in_time = pd.read_csv("datas//in_time.csv")
+out_time = pd.read_csv("datas//out_time.csv")
 
 # Étape 1 : Nettoyage de general_data
 print("Valeurs manquantes par colonne :")
 print(general_data.isnull().sum())
 
-num_cols = general_data.select_dtypes(include=[np.number]).columns
-for col in num_cols:
-    if general_data[col].isnull().sum() > 0:
-        general_data[col].fillna(general_data[col].mean(), inplace=True)
-
-cat_cols = general_data.select_dtypes(include=["object"]).columns
-for col in cat_cols:
-    if general_data[col].isnull().sum() > 0:
-        general_data[col].fillna(general_data[col].mode()[0], inplace=True)
+# Suppression des lignes contenant des valeurs manquantes
+general_data.dropna(inplace=True)
 
 columns_to_drop = ["EmployeeCount", "Over18", "StandardHours"]
 general_data.drop(columns=columns_to_drop, inplace=True)
@@ -40,35 +26,21 @@ print(general_data["Attrition"].value_counts())
 
 general_data["Attrition"] = general_data["Attrition"].apply(lambda x: 1 if x == "Yes" else 0)
 
-corr_matrix = general_data.corr()
-print("Matrice de corrélation avec Attrition :")
-print(corr_matrix["Attrition"].sort_values(ascending=False))
-
 # Nettoyage de manager_survey_data
 print("Valeurs manquantes dans manager_survey_data :")
 print(manager_survey_data.isnull().sum())
-print("Vérification de l'unicité de EmployeeID dans manager_survey_data :", manager_survey_data["EmployeeID"].is_unique)
+
+manager_survey_data.dropna(inplace=True)
 
 merged_data = pd.merge(general_data, manager_survey_data, on="EmployeeID", how="inner")
-
-print("Dimensions après fusion :", merged_data.shape)
-print("Valeurs manquantes après fusion :")
-print(merged_data[["JobInvolvement", "PerformanceRating"]].isnull().sum())
 
 # Nettoyage de employee_survey_data
 print("Valeurs manquantes dans employee_survey_data :")
 print(employee_survey_data.isnull().sum())
 
-survey_num_cols = ["EnvironmentSatisfaction", "JobSatisfaction", "WorkLifeBalance"]
-for col in survey_num_cols:
-    if employee_survey_data[col].isnull().sum() > 0:
-        employee_survey_data[col].fillna(employee_survey_data[col].mean(), inplace=True)
+employee_survey_data.dropna(inplace=True)
 
 merged_data = pd.merge(merged_data, employee_survey_data, on="EmployeeID", how="inner")
-
-print("Dimensions après fusion avec employee_survey_data :", merged_data.shape)
-print("Valeurs manquantes après la deuxième fusion :")
-print(merged_data.isnull().sum())
 
 # Traitement des fichiers in_time et out_time
 in_time.rename(columns={"Unnamed: 0": "EmployeeID"}, inplace=True)
@@ -93,6 +65,9 @@ work_metrics = pd.DataFrame({
     "IrregularDays": irregular_days
 })
 
+# Suppression des lignes avec des métriques manquantes
+work_metrics.dropna(inplace=True)
+
 # Fusionner avec merged_data
 merged_data = pd.merge(merged_data, work_metrics, on="EmployeeID", how="inner")
 
@@ -109,7 +84,10 @@ def identify_and_split_combined_columns(df):
 # Appliquer la fonction après la fusion finale
 merged_data = identify_and_split_combined_columns(merged_data)
 
-# Sauvegarde des données finales
-merged_data.to_csv("final_merged_data_with_work_metrics.csv", index=False)
+# Suppression des lignes restantes avec des valeurs manquantes
+merged_data.dropna(inplace=True)
 
-print("Fusion finale terminée. Les données complètes avec colonnes séparées sont sauvegardées dans 'final_merged_data_with_work_metrics.csv'.")
+# Sauvegarde des données finales
+merged_data.to_csv("final_merged_data_with_work_metrics_delete.csv", index=False)
+
+print("Fusion finale terminée. Les données complètes avec lignes sans valeurs manquantes sont sauvegardées dans 'final_merged_data_with_work_metrics.csv'.")
