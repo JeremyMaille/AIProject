@@ -6,7 +6,7 @@ from tensorflow.keras.models import load_model
 import joblib
 
 # Charger le modèle entraîné et le scaler
-model = load_model('employee_attrition_model.h5')
+model = load_model('models\\best_model_1_100.00.keras')
 scaler = joblib.load('scaler.pkl')
 
 # Charger les données pour obtenir les colonnes
