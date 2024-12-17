@@ -2,22 +2,16 @@ import pandas as pd
 import numpy as np
 import pygame
 import sys
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler
-from tensorflow.keras.models import Sequential, load_model
-from tensorflow.keras.layers import Dense, Dropout
-from tensorflow.keras.callbacks import EarlyStopping
+from tensorflow.keras.models import load_model
+import joblib
 
-# Charger les données
+# Charger le modèle entraîné et le scaler
+model = load_model('employee_attrition_model.h5')
+scaler = joblib.load('scaler.pkl')
+
+# Charger les données pour obtenir les colonnes
 data = pd.read_csv('datas\\FINAL_MERGED_DATA.CSV')
-
-# Supprimer les espaces en trop dans les noms de colonnes
 data.columns = data.columns.str.strip()
-
-# Afficher les noms des colonnes pour vérifier
-print(data.columns)
-
-# Convertir les colonnes catégorielles en variables indicatrices
 data = pd.get_dummies(data, columns=[
     'BusinessTravel_Travel_Frequently', 'BusinessTravel_Travel_Rarely', 'Gender_Male',
     'MaritalStatus_Married', 'MaritalStatus_Single', 'Department_Research & Development',
@@ -25,38 +19,7 @@ data = pd.get_dummies(data, columns=[
     'JobRole_Manufacturing Director', 'JobRole_Research Director', 'JobRole_Research Scientist',
     'JobRole_Sales Executive', 'JobRole_Sales Representative'
 ])
-
-# Séparer les caractéristiques et la cible
 X = data.drop(['Attrition', 'EmployeeID'], axis=1)
-y = data['Attrition']
-
-# Diviser les données
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-
-# Normaliser les données
-scaler = StandardScaler()
-X_train = scaler.fit_transform(X_train)
-X_test = scaler.transform(X_test)
-
-# Construire le modèle
-model = Sequential()
-model.add(Dense(128, input_dim=X_train.shape[1], activation='relu'))
-model.add(Dropout(0.2))
-model.add(Dense(64, activation='relu'))
-model.add(Dense(1, activation='sigmoid'))
-
-# Compiler le modèle
-model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
-
-# Entraîner le modèle
-early_stop = EarlyStopping(monitor='val_loss', patience=5)
-history = model.fit(X_train, y_train, validation_data=(X_test, y_test), epochs=60, callbacks=[early_stop])
-
-# Sauvegarder le modèle
-model.save('employee_attrition_model.h5')
-
-# Charger le modèle entraîné
-model = load_model('employee_attrition_model.h5')
 
 # Initialiser Pygame
 pygame.init()
@@ -268,10 +231,10 @@ while running:
                     input_values.append(0)  # Valeur par défaut si aucune option n'est sélectionnée
             
             # Créer un DataFrame avec les valeurs saisies
-            input_df = pd.DataFrame([input_values], columns=X.columns.drop(['Attrition', 'EmployeeID']))
+            input_df = pd.DataFrame([input_values], columns=X.columns)
             
             # Remplir les colonnes manquantes avec des zéros
-            for col in X.columns.drop(['Attrition', 'EmployeeID']):
+            for col in X.columns:
                 if col not in input_df.columns:
                     input_df[col] = 0
             
