@@ -1,3 +1,6 @@
+# ------------------------------------------
+# IMPORTING REQUIRED LIBRARIES
+# ------------------------------------------
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -9,39 +12,42 @@ from sklearn.metrics import (
     precision_score, recall_score, f1_score, ConfusionMatrixDisplay
 )
 
-# Chargement des données
+# ------------------------------------------
+# DATA LOADING AND PREPARATION
+# ------------------------------------------
 merged_data = pd.read_csv("final_merged_data_with_work_metrics_delete.csv")
-
-# Préparation des données
 y = merged_data["Attrition"]
 X = merged_data.drop(columns=["Attrition", "EmployeeID"])
-
 scaler = StandardScaler()
 X_scaled = scaler.fit_transform(X)
+X_train, X_test, y_train, y_test = train_test_split(
+    X_scaled, y, test_size=0.2, random_state=42
+)
 
-X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.2, random_state=42)
-
-# Modèle de régression logistique
+# ------------------------------------------
+# MODEL INITIALIZATION AND TRAINING
+# ------------------------------------------
 model = LogisticRegression(max_iter=1000, random_state=42)
 model.fit(X_train, y_train)
 
-# Prédictions et probabilités
+# ------------------------------------------
+# MODEL PREDICTIONS AND EVALUATION
+# ------------------------------------------
 y_pred = model.predict(X_test)
 y_pred_prob = model.predict_proba(X_test)[:, 1]
-
-# Métriques de base
 accuracy = accuracy_score(y_test, y_pred)
 
-# Courbe ROC
+# ------------------------------------------
+# ROC CURVE AND AUC SCORE
+# ------------------------------------------
 fpr, tpr, thresholds = roc_curve(y_test, y_pred_prob)
 roc_auc = auc(fpr, tpr)
 
-print(f"AUC de la courbe ROC : {roc_auc:.4f}")
-
+print(f"AUC of the ROC Curve: {roc_auc:.4f}")
 plt.figure(figsize=(10, 6))
 plt.plot(fpr, tpr, color='darkorange', lw=2, label=f"ROC curve (AUC = {roc_auc:.4f})")
 plt.plot([0, 1], [0, 1], color='navy', lw=2, linestyle='--')
-plt.title("Courbe ROC")
+plt.title("ROC Curve")
 plt.xlabel("False Positive Rate")
 plt.ylabel("True Positive Rate")
 plt.legend(loc="lower right")
@@ -49,29 +55,36 @@ plt.grid()
 plt.savefig("graphique/roc_curve.png")
 plt.show()
 
-# Validation croisée
+# ------------------------------------------
+# CROSS-VALIDATION RESULTS
+# ------------------------------------------
 cv_scores = cross_val_score(model, X_scaled, y, cv=5, scoring='accuracy')
-print("Résultats de la validation croisée :")
-print(f"Scores : {cv_scores}")
-print(f"Moyenne des scores : {np.mean(cv_scores):.4f}")
-print(f"Écart-type des scores : {np.std(cv_scores):.4f}")
+print("Cross-Validation Results:")
+print(f"Scores: {cv_scores}")
+print(f"Mean Score: {np.mean(cv_scores):.4f}")
+print(f"Standard Deviation: {np.std(cv_scores):.4f}")
 
+# ------------------------------------------
+# PRECISION, RECALL, AND F1-SCORE
+# ------------------------------------------
 precision = precision_score(y_test, y_pred)
 recall = recall_score(y_test, y_pred)
 f1 = f1_score(y_test, y_pred)
-
 print(f"Precision: {precision:.4f}")
 print(f"Recall   : {recall:.4f}")
 print(f"F1-Score : {f1:.4f}")
 
-# Log Loss
+# ------------------------------------------
+# LOG LOSS FOR TRAINING AND TEST DATA
+# ------------------------------------------
 loss_train = log_loss(y_train, model.predict_proba(X_train)[:, 1])
 loss_test = log_loss(y_test, y_pred_prob)
+print(f"Log Loss - Training: {loss_train:.4f}")
+print(f"Log Loss - Test    : {loss_test:.4f}")
 
-print(f"Log Loss - Entraînement : {loss_train:.4f}")
-print(f"Log Loss - Test         : {loss_test:.4f}")
-
-# Confusion Matrix
+# ------------------------------------------
+# CONFUSION MATRIX VISUALIZATION
+# ------------------------------------------
 conf_matrix = confusion_matrix(y_test, y_pred)
 plt.figure(figsize=(8, 6))
 disp = ConfusionMatrixDisplay(confusion_matrix=conf_matrix, display_labels=model.classes_)
@@ -80,7 +93,9 @@ plt.title("Confusion Matrix")
 plt.savefig("graphique/confusion_matrix.png")
 plt.show()
 
-# Courbes de Log Loss et Accuracy
+# ------------------------------------------
+# TRAINING AND TEST ACCURACY CURVES
+# ------------------------------------------
 train_accuracies = []
 test_accuracies = []
 loss_train_values = []
@@ -107,8 +122,8 @@ for fraction in np.linspace(0.1, 1.0, 10):
 plt.figure(figsize=(10, 6))
 plt.plot(np.linspace(0.1, 1.0, 10), loss_train_values, label="Train Loss", marker="o")
 plt.plot(np.linspace(0.1, 1.0, 10), loss_test_values, label="Test Loss", marker="o")
-plt.title("Log Loss pour l'entraînement et le test")
-plt.xlabel("Fraction des données d'entraînement utilisées")
+plt.title("Training and Test Log Loss")
+plt.xlabel("Fraction of Training Data Used")
 plt.ylabel("Log Loss")
 plt.ylim(0, 1)
 plt.legend()
@@ -119,8 +134,8 @@ plt.show()
 plt.figure(figsize=(10, 6))
 plt.plot(np.linspace(0.1, 1.0, 10), train_accuracies, label="Train Accuracy", marker="o")
 plt.plot(np.linspace(0.1, 1.0, 10), test_accuracies, label="Test Accuracy", marker="o")
-plt.title("Accuracy pour l'entraînement et le test")
-plt.xlabel("Fraction des données d'entraînement utilisées")
+plt.title("Training and Test Accuracy")
+plt.xlabel("Fraction of Training Data Used")
 plt.ylabel("Accuracy")
 plt.ylim(0, 1)
 plt.legend()
@@ -128,6 +143,9 @@ plt.grid()
 plt.savefig("graphique/accuracy_curve.png")
 plt.show()
 
+# ------------------------------------------
+# TOP 10 MOST INFLUENTIAL FEATURES
+# ------------------------------------------
 coefficients = pd.DataFrame({
     'Feature': X.columns,
     'Coefficient': abs(model.coef_[0])
@@ -137,20 +155,23 @@ top_10_features = coefficients.head(10)
 
 plt.figure(figsize=(12, 8))
 plt.barh(top_10_features['Feature'], top_10_features['Coefficient'], color='blue')
-plt.title("Top 10 des paramètres les plus influents sur l'attrition")
+plt.title("Top 10 Influential Features for Attrition")
 plt.xlabel("Coefficient")
 plt.ylabel("Feature")
-plt.gca().invert_yaxis()  
+plt.gca().invert_yaxis()
 plt.grid(axis='x')
 plt.savefig("graphique/top_10_influential_features.png")
 plt.show()
 
+# ------------------------------------------
+# PREDICTIONS FOR THE FIRST 10 PEOPLE
+# ------------------------------------------
 top_10_people = X[:10]
 top_10_people_scaled = scaler.transform(top_10_people)
 
 predictions = model.predict(top_10_people_scaled)
 probabilities = model.predict_proba(top_10_people_scaled)[:, 1]
 
-print("Prédictions pour les 10 premières personnes :")
+print("Predictions for the First 10 People:")
 for i, (pred, prob) in enumerate(zip(predictions, probabilities)):
-    print(f"Personne {i+1}: Quittera l'entreprise : {'Oui' if pred == 1 else 'Non'}, Probabilité : {prob:.2f}")
+    print(f"Person {i+1}: Will Leave the Company: {'Yes' if pred == 1 else 'No'}, Probability: {prob:.2f}")

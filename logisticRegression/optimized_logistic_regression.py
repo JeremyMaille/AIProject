@@ -1,3 +1,6 @@
+# ------------------------------------------
+# IMPORTING REQUIRED LIBRARIES
+# ------------------------------------------
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -5,11 +8,16 @@ import joblib
 from sklearn.model_selection import train_test_split, GridSearchCV, cross_val_score
 from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import StandardScaler, PolynomialFeatures
-from sklearn.metrics import log_loss, accuracy_score, roc_curve, auc, confusion_matrix, precision_score, recall_score, f1_score
+from sklearn.metrics import (
+    log_loss, accuracy_score, roc_curve, auc, confusion_matrix, 
+    precision_score, recall_score, f1_score
+)
 from imblearn.over_sampling import SMOTE
 
+# ------------------------------------------
+# DATA LOADING AND PREPARATION
+# ------------------------------------------
 merged_data = pd.read_csv("final_merged_data_with_work_metrics_delete.csv")
-
 y = merged_data["Attrition"]
 X = merged_data.drop(columns=["Attrition", "EmployeeID"])
 
@@ -26,22 +34,31 @@ X_balanced = scaler.fit_transform(X_balanced)
 
 X_train, X_test, y_train, y_test = train_test_split(X_balanced, y_balanced, test_size=0.2, random_state=42)
 
+# ------------------------------------------
+# MODEL INITIALIZATION AND HYPERPARAMETER TUNING
+# ------------------------------------------
 param_grid = {
     'C': [0.01, 0.1, 1, 10, 100],
     'penalty': ['l1', 'l2'],
     'solver': ['liblinear']
 }
 
-grid_search = GridSearchCV(estimator=LogisticRegression(max_iter=1000, random_state=42), param_grid=param_grid, scoring='accuracy', cv=5, verbose=1)
+grid_search = GridSearchCV(
+    estimator=LogisticRegression(max_iter=1000, random_state=42), 
+    param_grid=param_grid, scoring='accuracy', cv=5, verbose=1
+)
 grid_search.fit(X_train, y_train)
-
 best_model = grid_search.best_estimator_
-print("Meilleurs hyperparamètres :", grid_search.best_params_)
+
+print("Best Hyperparameters:", grid_search.best_params_)
 
 joblib.dump(best_model, "logistic_regression_model.pkl")
 joblib.dump(scaler, "scaler.pkl")
 joblib.dump(poly, "poly_features.pkl")
 
+# ------------------------------------------
+# LEARNING CURVE: LOSS AND ACCURACY
+# ------------------------------------------
 loss_train = []
 loss_test = []
 accuracy_train = []
@@ -59,8 +76,8 @@ for i in range(1, 11):
 plt.figure(figsize=(10, 6))
 plt.plot(range(1, 11), loss_train, label="Train Loss", marker="o")
 plt.plot(range(1, 11), loss_test, label="Test Loss", marker="o")
-plt.title("Courbe de la perte (Loss) pour l'entraînement et le test")
-plt.xlabel("Fraction de données utilisées pour l'entraînement")
+plt.title("Loss Curve for Training and Test")
+plt.xlabel("Fraction of Training Data Used")
 plt.ylabel("Log Loss")
 plt.ylim(0, 1)
 plt.legend()
@@ -71,8 +88,8 @@ plt.show()
 plt.figure(figsize=(10, 6))
 plt.plot(range(1, 11), accuracy_train, label="Train Accuracy", marker="o")
 plt.plot(range(1, 11), accuracy_test, label="Test Accuracy", marker="o")
-plt.title("Courbe de l'accuracy pour l'entraînement et le test")
-plt.xlabel("Fraction de données utilisées pour l'entraînement")
+plt.title("Accuracy Curve for Training and Test")
+plt.xlabel("Fraction of Training Data Used")
 plt.ylabel("Accuracy")
 plt.ylim(0, 1)
 plt.legend()
@@ -80,6 +97,9 @@ plt.grid()
 plt.savefig("graphique/accuracy_train_test_curve.png")
 plt.show()
 
+# ------------------------------------------
+# FEATURE IMPORTANCE VISUALIZATION
+# ------------------------------------------
 coefficients = pd.DataFrame({
     'Feature': feature_names,
     'Coefficient': best_model.coef_[0]
@@ -87,7 +107,7 @@ coefficients = pd.DataFrame({
 
 plt.figure(figsize=(15, 10))
 plt.barh(coefficients['Feature'].head(10), coefficients['Coefficient'].head(10))
-plt.title("Top 10 des paramètres les plus influents sur l'attrition")
+plt.title("Top 10 Influential Features for Attrition")
 plt.xlabel("Coefficient")
 plt.ylabel("Feature")
 plt.gca().invert_yaxis()
@@ -95,12 +115,18 @@ plt.grid()
 plt.savefig("graphique/top_10_influential_features.png")
 plt.show()
 
+# ------------------------------------------
+# CROSS-VALIDATION RESULTS
+# ------------------------------------------
 cv_scores = cross_val_score(best_model, X_balanced, y_balanced, cv=5, scoring='accuracy')
-print("Résultats de la validation croisée :")
-print(f"Scores : {cv_scores}")
-print(f"Moyenne des scores : {np.mean(cv_scores):.4f}")
-print(f"Écart-type des scores : {np.std(cv_scores):.4f}")
+print("Cross-Validation Results:")
+print(f"Scores: {cv_scores}")
+print(f"Mean Score: {np.mean(cv_scores):.4f}")
+print(f"Standard Deviation: {np.std(cv_scores):.4f}")
 
+# ------------------------------------------
+# ROC CURVE AND CONFUSION MATRIX
+# ------------------------------------------
 y_test_pred_prob = best_model.predict_proba(X_test)[:, 1]
 y_test_pred = best_model.predict(X_test)
 
@@ -110,7 +136,7 @@ roc_auc = auc(fpr, tpr)
 plt.figure(figsize=(10, 6))
 plt.plot(fpr, tpr, color='darkorange', lw=2, label=f"ROC curve (AUC = {roc_auc:.2f})")
 plt.plot([0, 1], [0, 1], color='navy', lw=2, linestyle='--')
-plt.title("Courbe ROC")
+plt.title("ROC Curve")
 plt.xlabel("False Positive Rate")
 plt.ylabel("True Positive Rate")
 plt.legend(loc="lower right")
@@ -130,6 +156,9 @@ plt.ylabel("True Labels")
 plt.savefig("graphique/confusion_matrix.png")
 plt.show()
 
+# ------------------------------------------
+# PRECISION, RECALL, AND F1-SCORE
+# ------------------------------------------
 precision = precision_score(y_test, y_test_pred)
 recall = recall_score(y_test, y_test_pred)
 f1 = f1_score(y_test, y_test_pred)
@@ -138,6 +167,9 @@ print(f"Precision: {precision:.4f}")
 print(f"Recall: {recall:.4f}")
 print(f"F1-Score: {f1:.4f}")
 
+# ------------------------------------------
+# PREDICTIONS FOR THE FIRST 10 PEOPLE
+# ------------------------------------------
 top_10_people = merged_data.drop(columns=["Attrition", "EmployeeID"]).iloc[:10]
 top_10_people_poly = poly.transform(top_10_people)
 top_10_people_scaled = scaler.transform(top_10_people_poly)
@@ -145,6 +177,6 @@ top_10_people_scaled = scaler.transform(top_10_people_poly)
 predictions = best_model.predict(top_10_people_scaled)
 probabilities = best_model.predict_proba(top_10_people_scaled)[:, 1]
 
-print("Prédictions pour les 10 premières personnes :")
+print("Predictions for the First 10 People:")
 for i, (pred, prob) in enumerate(zip(predictions, probabilities)):
-    print(f"Personne {i+1}: Quittera l'entreprise : {'Oui' if pred == 1 else 'Non'}, Probabilité : {prob:.2f}")
+    print(f"Person {i+1}: Will Leave the Company: {'Yes' if pred == 1 else 'No'}, Probability: {prob:.2f}")
