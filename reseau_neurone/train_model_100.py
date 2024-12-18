@@ -59,7 +59,7 @@ def main():
     os.makedirs(best_models_dir, exist_ok=True)
     for i, result in enumerate(results[:5]):
         src_model_path = result['model_path']
-        dest_model_path = os.path.join(best_models_dir, f"best_model_{i}.h5")
+        dest_model_path = os.path.join(best_models_dir, f"best_model_{i}.keras")
 
         try:
             os.rename(src_model_path, dest_model_path)
