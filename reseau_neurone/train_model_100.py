@@ -2,195 +2,93 @@ import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import RobustScaler
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense, Dropout, BatchNormalization
-from tensorflow.keras.callbacks import EarlyStopping, ReduceLROnPlateau
-from tensorflow.keras.optimizers import Adam
-import joblib
-from joblib import Parallel, delayed
+from reseau_neurone.parallel_trainer import ParallelTrainer
 import os
-import matplotlib.pyplot as plt
-from matplotlib.animation import FuncAnimation
+import json
+from datetime import datetime
+import sys
 
-# Preprocess Data
 def preprocess_data(file_path):
-    data = pd.read_csv("datas\\final_merged_data.csv")
+    data = pd.read_csv(file_path)
     data.columns = data.columns.str.strip()
-
-    if 'Attrition' not in data.columns:
-        raise KeyError("The 'Attrition' column is missing.")
 
     if 'EmployeeID' in data.columns:
         data.drop(['EmployeeID'], axis=1, inplace=True)
 
-    # Convert boolean columns to integers
-    bool_columns = data.select_dtypes(include=['bool']).columns
-    for col in bool_columns:
-        data[col] = data[col].astype(int)
-
-    # Get mappings for categorical variables
-    cat_columns = data.select_dtypes(include=['object']).columns
-    mappings = {}
-
-    for col in cat_columns:
-        data[col] = data[col].astype('category')
-        mappings[col] = data[col].cat.categories.tolist()
-        data[col] = data[col].cat.codes
-
-    # Get ranges for numerical variables
-    num_columns = data.select_dtypes(include=[np.number]).columns.tolist()
-    num_columns.remove('Attrition')
-    ranges = {}
-
-    for col in num_columns:
-        min_val = data[col].min()
-        max_val = data[col].max()
-        ranges[col] = [min_val, max_val]
-
-    # Combine mappings and ranges into the desired format
-    mapping_values = {}
-
-    # List of columns in the desired order
-    column_names = ['Age', 'BusinessTravel', 'Department', 'DistanceFromHome', 'Education',
-                    'EducationField', 'Gender', 'JobLevel', 'JobRole', 'MaritalStatus',
-                    'MonthlyIncome', 'NumCompaniesWorked', 'PercentSalaryHike',
-                    'StockOptionLevel', 'TotalWorkingYears', 'TrainingTimesLastYear',
-                    'YearsAtCompany', 'YearsSinceLastPromotion', 'YearsWithCurrManager',
-                    'JobInvolvement', 'PerformanceRating', 'EnvironmentSatisfaction',
-                    'JobSatisfaction', 'WorkLifeBalance', 'AverageHoursWorked']
-
-    for col in column_names:
-        if col in mappings:
-            value = mappings[col]
-        elif col in ranges:
-            value = ranges[col]
-        else:
-            value = None  # If the column doesn't exist
-        mapping_values[col] = value
-
-    # Create DataFrame with the mappings
-    mapping_df = pd.DataFrame([mapping_values])
-    mapping_df.to_csv('mapping_values.csv', index=False)
-
-    # Continue with preprocessing
-    X = data.drop(['Attrition'], axis=1)
+    # Separate target variable
     y = data['Attrition']
+    X = data.drop(['Attrition'], axis=1)
 
+    # Identify categorical columns
+    categorical_cols = X.select_dtypes(include=['object', 'bool']).columns.tolist()
+
+    # One-hot encode categorical variables
+    X = pd.get_dummies(X, columns=categorical_cols, drop_first=True)
+
+    # Scale numerical features
+    numerical_cols = X.select_dtypes(include=['int64', 'float64']).columns.tolist()
     scaler = RobustScaler()
-    X_scaled = scaler.fit_transform(X)
+    X[numerical_cols] = scaler.fit_transform(X[numerical_cols])
 
+    # Split data
     X_train, X_test, y_train, y_test = train_test_split(
-        X_scaled, y, test_size=0.2, random_state=42
+        X, y, test_size=0.2, random_state=42, stratify=y
     )
 
     return X_train, X_test, y_train, y_test, scaler
 
-# Create Model
-def create_model(input_dim):
-    model = Sequential([
-        Dense(256, input_dim=input_dim, activation='relu'),
-        BatchNormalization(),
-        Dropout(0.3),
-
-        Dense(128, activation='relu'),
-        BatchNormalization(),
-        Dropout(0.2),
-
-        Dense(64, activation='relu'),
-        BatchNormalization(),
-
-        Dense(1, activation='sigmoid')
-    ])
-
-    model.compile(optimizer=Adam(learning_rate=0.001),
-                  loss='binary_crossentropy',
-                  metrics=['accuracy'])
-
-    return model
-
-# Train Single Model
-def train_single_model(i, X_train, y_train, X_test, y_test, input_dim, epochs):
-    print(f"Training model {i + 1}...")
-    model = create_model(input_dim)
-
-    callbacks = [
-        EarlyStopping(monitor='val_loss', patience=5, restore_best_weights=True),
-        ReduceLROnPlateau(monitor='val_loss', factor=0.2, patience=3, verbose=0)
-    ]
-
-    history = model.fit(
-        X_train, y_train,
-        validation_data=(X_test, y_test),
-        epochs=epochs,
-        batch_size=32,
-        callbacks=callbacks,
-        verbose=0
-    )
-
-    loss, accuracy = model.evaluate(X_test, y_test, verbose=0)
-    print(f"Model {i + 1}: Accuracy: {accuracy * 100:.2f}%, Loss: {loss * 100:.2f}%")
-    return {'model': model, 'accuracy': accuracy, 'loss': loss, 'history': history.history}
-
-# Train Multiple Models in Parallel
-def train_multiple_models(file_path, num_models=100, epochs=50):
-    X_train, X_test, y_train, y_test, scaler = preprocess_data(file_path)
-    input_dim = X_train.shape[1]
-
-    # Train models in parallel
-    results = Parallel(n_jobs=-1)(
-        delayed(train_single_model)(i, X_train, y_train, X_test, y_test, input_dim, epochs)
-        for i in range(num_models)
-    )
-
-    # Sort models by accuracy
-    results.sort(key=lambda x: x['accuracy'], reverse=True)
-
-    # Print accuracy and loss of each model
-    for i, result in enumerate(results):
-        print(f"Model {i + 1}: Accuracy: {result['accuracy'] * 100:.2f}%, Loss: {result['loss'] * 100:.2f}%")
-
-    return results[:5], input_dim
-
-# Plot Evolution
-def plot_top_models(results):
-    fig, ax = plt.subplots(2, 1, figsize=(10, 8))
-
-    for i, result in enumerate(results):
-        history = result['history']
-        ax[0].plot(history['accuracy'], label=f'Model {i + 1}')
-        ax[1].plot(history['val_loss'], label=f'Model {i + 1}')
-
-    ax[0].set_title('Training Accuracy Evolution')
-    ax[0].set_xlabel('Epochs')
-    ax[0].set_ylabel('Accuracy')
-    ax[0].legend()
-
-    ax[1].set_title('Validation Loss Evolution')
-    ax[1].set_xlabel('Epochs')
-    ax[1].set_ylabel('Loss')
-    ax[1].legend()
-
-    plt.tight_layout()
-    plt.savefig('top_models_evolution.png')
-    plt.show()
-
-# Main Function
 def main():
-    os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+    # Load and preprocess data
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    data_path = os.path.join(current_dir, '..', 'datas', 'final_merged_data_with_work_metrics_delete.csv')
+    trainer = ParallelTrainer()
+    X_train, X_test, y_train, y_test, scaler = preprocess_data(data_path)
 
-    file_path = '/mnt/data/final_merged_data.csv'
+    # Start training
+    results = trainer.train_parallel(X_train, y_train, X_test, y_test)
 
-    # Train multiple models
-    top_results, input_dim = train_multiple_models(file_path, num_models=60, epochs=50)
+    if not results:
+        print("No successful models were trained. Please check the training logs for issues.")
+        sys.exit(1)
 
-    # Save the best models
-    os.makedirs('models/', exist_ok=True)
-    for i, result in enumerate(top_results):
-        accuracy = result['accuracy'] * 100
-        result['model'].save(f'models/best_model_{i + 1}_{accuracy:.2f}.keras')
+    # Sort results by AUC
+    results.sort(key=lambda x: x['metrics']['auc'], reverse=True)
 
-    # Plot the evolution of top models
-    plot_top_models(top_results)
+    # Save top 5 models
+    best_models_dir = os.path.join('saved_models')
+    os.makedirs(best_models_dir, exist_ok=True)
+    for i, result in enumerate(results[:5]):
+        src_model_path = result['model_path']
+        dest_model_path = os.path.join(best_models_dir, f"best_model_{i}.h5")
+
+        try:
+            os.rename(src_model_path, dest_model_path)
+            print(f"Best Model {i} saved to {dest_model_path}")
+        except Exception as e:
+            print(f"Error saving Best Model {i}: {str(e)}")
+
+    # Save results
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    results_dir = os.path.join('results')
+    os.makedirs(results_dir, exist_ok=True)
+    result_file = os.path.join(results_dir, f"training_results_{timestamp}.json")
+    with open(result_file, 'w') as f:
+        json.dump(results, f, indent=4)
+    print(f"Training results saved to {result_file}")
+
+    # Feature importance analysis
+    importances = trainer.feature_importance(X_train.columns)
+    if importances is not None:
+        import matplotlib.pyplot as plt
+        plt.figure(figsize=(10, 6))
+        importances.sort_values().plot(kind='barh')
+        plt.title('Feature Importance')
+        feature_importance_path = os.path.join(results_dir, f"feature_importance_{timestamp}.png")
+        plt.savefig(feature_importance_path)
+        plt.close()
+        print(f"Feature importance plot saved to {feature_importance_path}")
+    else:
+        print("Feature importance analysis was not performed.")
 
 if __name__ == "__main__":
     main()

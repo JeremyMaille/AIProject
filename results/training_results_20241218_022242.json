@@ -1,0 +1,1865 @@
+[
+    {
+        "model_id": 24,
+        "metrics": {
+            "loss": 0.006555604748427868,
+            "accuracy": 0.9965116381645203,
+            "auc": 1.0
+        },
+        "config": {
+            "learning_rate": 0.001,
+            "dropout_rates": [
+                0.5,
+                0.4,
+                0.3
+            ],
+            "layer_sizes": [
+                1024,
+                512,
+                256
+            ],
+            "batch_size": 32
+        },
+        "model_path": "saved_models\\model_24.h5"
+    },
+    {
+        "model_id": 9,
+        "metrics": {
+            "loss": 0.007737003266811371,
+            "accuracy": 1.0,
+            "auc": 0.9999998807907104
+        },
+        "config": {
+            "learning_rate": 0.001,
+            "dropout_rates": [
+                0.4,
+                0.3,
+                0.2
+            ],
+            "layer_sizes": [
+                512,
+                256,
+                128
+            ],
+            "batch_size": 32
+        },
+        "model_path": "saved_models\\model_9.h5"
+    },
+    {
+        "model_id": 3,
+        "metrics": {
+            "loss": 0.01649967022240162,
+            "accuracy": 0.9976744055747986,
+            "auc": 0.9999900460243225
+        },
+        "config": {
+            "learning_rate": 0.001,
+            "dropout_rates": [
+                0.3,
+                0.2,
+                0.1
+            ],
+            "layer_sizes": [
+                256,
+                128,
+                64
+            ],
+            "batch_size": 32
+        },
+        "model_path": "saved_models\\model_3.h5"
+    },
+    {
+        "model_id": 20,
+        "metrics": {
+            "loss": 0.012008997611701488,
+            "accuracy": 0.9976744055747986,
+            "auc": 0.9999800324440002
+        },
+        "config": {
+            "learning_rate": 0.001,
+            "dropout_rates": [
+                0.5,
+                0.4,
+                0.3
+            ],
+            "layer_sizes": [
+                512,
+                256,
+                128
+            ],
+            "batch_size": 128
+        },
+        "model_path": "saved_models\\model_20.h5"
+    },
+    {
+        "model_id": 6,
+        "metrics": {
+            "loss": 0.012707053683698177,
+            "accuracy": 0.9965116381645203,
+            "auc": 0.9998353123664856
+        },
+        "config": {
+            "learning_rate": 0.001,
+            "dropout_rates": [
+                0.3,
+                0.2,
+                0.1
+            ],
+            "layer_sizes": [
+                1024,
+                512,
+                256
+            ],
+            "batch_size": 32
+        },
+        "model_path": "saved_models\\model_6.h5"
+    },
+    {
+        "model_id": 31,
+        "metrics": {
+            "loss": 0.023567233234643936,
+            "accuracy": 0.9953488111495972,
+            "auc": 0.9997504949569702
+        },
+        "config": {
+            "learning_rate": 0.0005,
+            "dropout_rates": [
+                0.3,
+                0.2,
+                0.1
+            ],
+            "layer_sizes": [
+                256,
+                128,
+                64
+            ],
+            "batch_size": 64
+        },
+        "model_path": "saved_models\\model_31.h5"
+    },
+    {
+        "model_id": 13,
+        "metrics": {
+            "loss": 0.019707152619957924,
+            "accuracy": 0.9941860437393188,
+            "auc": 0.9997405409812927
+        },
+        "config": {
+            "learning_rate": 0.001,
+            "dropout_rates": [
+                0.4,
+                0.3,
+                0.2
+            ],
+            "layer_sizes": [
+                256,
+                128,
+                64
+            ],
+            "batch_size": 64
+        },
+        "model_path": "saved_models\\model_13.h5"
+    },
+    {
+        "model_id": 44,
+        "metrics": {
+            "loss": 0.014768924564123154,
+            "accuracy": 0.9953488111495972,
+            "auc": 0.9997106194496155
+        },
+        "config": {
+            "learning_rate": 0.0005,
+            "dropout_rates": [
+                0.4,
+                0.3,
+                0.2
+            ],
+            "layer_sizes": [
+                1024,
+                512,
+                256
+            ],
+            "batch_size": 128
+        },
+        "model_path": "saved_models\\model_44.h5"
+    },
+    {
+        "model_id": 26,
+        "metrics": {
+            "loss": 0.013985318131744862,
+            "accuracy": 0.9965116381645203,
+            "auc": 0.9996857047080994
+        },
+        "config": {
+            "learning_rate": 0.001,
+            "dropout_rates": [
+                0.5,
+                0.4,
+                0.3
+            ],
+            "layer_sizes": [
+                1024,
+                512,
+                256
+            ],
+            "batch_size": 128
+        },
+        "model_path": "saved_models\\model_26.h5"
+    },
+    {
+        "model_id": 34,
+        "metrics": {
+            "loss": 0.016005855053663254,
+            "accuracy": 0.9965116381645203,
+            "auc": 0.999565839767456
+        },
+        "config": {
+            "learning_rate": 0.0005,
+            "dropout_rates": [
+                0.3,
+                0.2,
+                0.1
+            ],
+            "layer_sizes": [
+                1024,
+                512,
+                256
+            ],
+            "batch_size": 64
+        },
+        "model_path": "saved_models\\model_34.h5"
+    },
+    {
+        "model_id": 33,
+        "metrics": {
+            "loss": 0.015582222491502762,
+            "accuracy": 0.9965116381645203,
+            "auc": 0.9994761347770691
+        },
+        "config": {
+            "learning_rate": 0.0005,
+            "dropout_rates": [
+                0.3,
+                0.2,
+                0.1
+            ],
+            "layer_sizes": [
+                1024,
+                512,
+                256
+            ],
+            "batch_size": 32
+        },
+        "model_path": "saved_models\\model_33.h5"
+    },
+    {
+        "model_id": 16,
+        "metrics": {
+            "loss": 0.027633726596832275,
+            "accuracy": 0.989534854888916,
+            "auc": 0.9990121722221375
+        },
+        "config": {
+            "learning_rate": 0.001,
+            "dropout_rates": [
+                0.4,
+                0.3,
+                0.2
+            ],
+            "layer_sizes": [
+                1024,
+                512,
+                256
+            ],
+            "batch_size": 64
+        },
+        "model_path": "saved_models\\model_16.h5"
+    },
+    {
+        "model_id": 42,
+        "metrics": {
+            "loss": 0.020047759637236595,
+            "accuracy": 0.9965116381645203,
+            "auc": 0.9986180067062378
+        },
+        "config": {
+            "learning_rate": 0.0005,
+            "dropout_rates": [
+                0.4,
+                0.3,
+                0.2
+            ],
+            "layer_sizes": [
+                1024,
+                512,
+                256
+            ],
+            "batch_size": 32
+        },
+        "model_path": "saved_models\\model_42.h5"
+    },
+    {
+        "model_id": 8,
+        "metrics": {
+            "loss": 0.30749136209487915,
+            "accuracy": 0.8488371968269348,
+            "auc": 0.9985581636428833
+        },
+        "config": {
+            "learning_rate": 0.001,
+            "dropout_rates": [
+                0.3,
+                0.2,
+                0.1
+            ],
+            "layer_sizes": [
+                1024,
+                512,
+                256
+            ],
+            "batch_size": 128
+        },
+        "model_path": "saved_models\\model_8.h5"
+    },
+    {
+        "model_id": 21,
+        "metrics": {
+            "loss": 0.09240534901618958,
+            "accuracy": 0.960465133190155,
+            "auc": 0.9984084963798523
+        },
+        "config": {
+            "learning_rate": 0.001,
+            "dropout_rates": [
+                0.5,
+                0.4,
+                0.3
+            ],
+            "layer_sizes": [
+                256,
+                128,
+                64
+            ],
+            "batch_size": 32
+        },
+        "model_path": "saved_models\\model_21.h5"
+    },
+    {
+        "model_id": 23,
+        "metrics": {
+            "loss": 0.07444090396165848,
+            "accuracy": 0.9802325367927551,
+            "auc": 0.9983785152435303
+        },
+        "config": {
+            "learning_rate": 0.001,
+            "dropout_rates": [
+                0.5,
+                0.4,
+                0.3
+            ],
+            "layer_sizes": [
+                256,
+                128,
+                64
+            ],
+            "batch_size": 128
+        },
+        "model_path": "saved_models\\model_23.h5"
+    },
+    {
+        "model_id": 15,
+        "metrics": {
+            "loss": 0.054212771356105804,
+            "accuracy": 0.9837209582328796,
+            "auc": 0.9983536005020142
+        },
+        "config": {
+            "learning_rate": 0.001,
+            "dropout_rates": [
+                0.4,
+                0.3,
+                0.2
+            ],
+            "layer_sizes": [
+                1024,
+                512,
+                256
+            ],
+            "batch_size": 32
+        },
+        "model_path": "saved_models\\model_15.h5"
+    },
+    {
+        "model_id": 46,
+        "metrics": {
+            "loss": 0.03233105689287186,
+            "accuracy": 0.9941860437393188,
+            "auc": 0.9983336329460144
+        },
+        "config": {
+            "learning_rate": 0.0005,
+            "dropout_rates": [
+                0.5,
+                0.4,
+                0.3
+            ],
+            "layer_sizes": [
+                512,
+                256,
+                128
+            ],
+            "batch_size": 64
+        },
+        "model_path": "saved_models\\model_46.h5"
+    },
+    {
+        "model_id": 30,
+        "metrics": {
+            "loss": 0.033361658453941345,
+            "accuracy": 0.9930232763290405,
+            "auc": 0.9982039928436279
+        },
+        "config": {
+            "learning_rate": 0.0005,
+            "dropout_rates": [
+                0.3,
+                0.2,
+                0.1
+            ],
+            "layer_sizes": [
+                256,
+                128,
+                64
+            ],
+            "batch_size": 32
+        },
+        "model_path": "saved_models\\model_30.h5"
+    },
+    {
+        "model_id": 18,
+        "metrics": {
+            "loss": 0.048523806035518646,
+            "accuracy": 0.9825581312179565,
+            "auc": 0.9977847933769226
+        },
+        "config": {
+            "learning_rate": 0.001,
+            "dropout_rates": [
+                0.5,
+                0.4,
+                0.3
+            ],
+            "layer_sizes": [
+                512,
+                256,
+                128
+            ],
+            "batch_size": 32
+        },
+        "model_path": "saved_models\\model_18.h5"
+    },
+    {
+        "model_id": 70,
+        "metrics": {
+            "loss": 0.08784788846969604,
+            "accuracy": 0.974418580532074,
+            "auc": 0.9976601600646973
+        },
+        "config": {
+            "learning_rate": 0.0001,
+            "dropout_rates": [
+                0.4,
+                0.3,
+                0.2
+            ],
+            "layer_sizes": [
+                1024,
+                512,
+                256
+            ],
+            "batch_size": 64
+        },
+        "model_path": "saved_models\\model_70.h5"
+    },
+    {
+        "model_id": 52,
+        "metrics": {
+            "loss": 0.08680599182844162,
+            "accuracy": 0.9674418568611145,
+            "auc": 0.9976401329040527
+        },
+        "config": {
+            "learning_rate": 0.0005,
+            "dropout_rates": [
+                0.5,
+                0.4,
+                0.3
+            ],
+            "layer_sizes": [
+                1024,
+                512,
+                256
+            ],
+            "batch_size": 64
+        },
+        "model_path": "saved_models\\model_52.h5"
+    },
+    {
+        "model_id": 51,
+        "metrics": {
+            "loss": 0.03392060846090317,
+            "accuracy": 0.9906976819038391,
+            "auc": 0.9973856806755066
+        },
+        "config": {
+            "learning_rate": 0.0005,
+            "dropout_rates": [
+                0.5,
+                0.4,
+                0.3
+            ],
+            "layer_sizes": [
+                1024,
+                512,
+                256
+            ],
+            "batch_size": 32
+        },
+        "model_path": "saved_models\\model_51.h5"
+    },
+    {
+        "model_id": 27,
+        "metrics": {
+            "loss": 0.06966574490070343,
+            "accuracy": 0.9825581312179565,
+            "auc": 0.9973458051681519
+        },
+        "config": {
+            "learning_rate": 0.0005,
+            "dropout_rates": [
+                0.3,
+                0.2,
+                0.1
+            ],
+            "layer_sizes": [
+                512,
+                256,
+                128
+            ],
+            "batch_size": 32
+        },
+        "model_path": "saved_models\\model_27.h5"
+    },
+    {
+        "model_id": 19,
+        "metrics": {
+            "loss": 0.05882026627659798,
+            "accuracy": 0.9813953638076782,
+            "auc": 0.9972261190414429
+        },
+        "config": {
+            "learning_rate": 0.001,
+            "dropout_rates": [
+                0.5,
+                0.4,
+                0.3
+            ],
+            "layer_sizes": [
+                512,
+                256,
+                128
+            ],
+            "batch_size": 64
+        },
+        "model_path": "saved_models\\model_19.h5"
+    },
+    {
+        "model_id": 36,
+        "metrics": {
+            "loss": 0.06522529572248459,
+            "accuracy": 0.9802325367927551,
+            "auc": 0.9969615936279297
+        },
+        "config": {
+            "learning_rate": 0.0005,
+            "dropout_rates": [
+                0.4,
+                0.3,
+                0.2
+            ],
+            "layer_sizes": [
+                512,
+                256,
+                128
+            ],
+            "batch_size": 32
+        },
+        "model_path": "saved_models\\model_36.h5"
+    },
+    {
+        "model_id": 71,
+        "metrics": {
+            "loss": 0.10742735117673874,
+            "accuracy": 0.9616279006004333,
+            "auc": 0.9969267249107361
+        },
+        "config": {
+            "learning_rate": 0.0001,
+            "dropout_rates": [
+                0.4,
+                0.3,
+                0.2
+            ],
+            "layer_sizes": [
+                1024,
+                512,
+                256
+            ],
+            "batch_size": 128
+        },
+        "model_path": "saved_models\\model_71.h5"
+    },
+    {
+        "model_id": 11,
+        "metrics": {
+            "loss": 0.02735222689807415,
+            "accuracy": 0.9965116381645203,
+            "auc": 0.9967970252037048
+        },
+        "config": {
+            "learning_rate": 0.001,
+            "dropout_rates": [
+                0.4,
+                0.3,
+                0.2
+            ],
+            "layer_sizes": [
+                512,
+                256,
+                128
+            ],
+            "batch_size": 128
+        },
+        "model_path": "saved_models\\model_11.h5"
+    },
+    {
+        "model_id": 25,
+        "metrics": {
+            "loss": 0.054041843861341476,
+            "accuracy": 0.984883725643158,
+            "auc": 0.9966722726821899
+        },
+        "config": {
+            "learning_rate": 0.001,
+            "dropout_rates": [
+                0.5,
+                0.4,
+                0.3
+            ],
+            "layer_sizes": [
+                1024,
+                512,
+                256
+            ],
+            "batch_size": 64
+        },
+        "model_path": "saved_models\\model_25.h5"
+    },
+    {
+        "model_id": 39,
+        "metrics": {
+            "loss": 0.07985393702983856,
+            "accuracy": 0.9767441749572754,
+            "auc": 0.9966323971748352
+        },
+        "config": {
+            "learning_rate": 0.0005,
+            "dropout_rates": [
+                0.4,
+                0.3,
+                0.2
+            ],
+            "layer_sizes": [
+                256,
+                128,
+                64
+            ],
+            "batch_size": 32
+        },
+        "model_path": "saved_models\\model_39.h5"
+    },
+    {
+        "model_id": 0,
+        "metrics": {
+            "loss": 0.0629797950387001,
+            "accuracy": 0.9767441749572754,
+            "auc": 0.9962531924247742
+        },
+        "config": {
+            "learning_rate": 0.001,
+            "dropout_rates": [
+                0.3,
+                0.2,
+                0.1
+            ],
+            "layer_sizes": [
+                512,
+                256,
+                128
+            ],
+            "batch_size": 32
+        },
+        "model_path": "saved_models\\model_0.h5"
+    },
+    {
+        "model_id": 43,
+        "metrics": {
+            "loss": 0.04633026197552681,
+            "accuracy": 0.9906976819038391,
+            "auc": 0.9961085319519043
+        },
+        "config": {
+            "learning_rate": 0.0005,
+            "dropout_rates": [
+                0.4,
+                0.3,
+                0.2
+            ],
+            "layer_sizes": [
+                1024,
+                512,
+                256
+            ],
+            "batch_size": 64
+        },
+        "model_path": "saved_models\\model_43.h5"
+    },
+    {
+        "model_id": 45,
+        "metrics": {
+            "loss": 0.04355354234576225,
+            "accuracy": 0.9883720874786377,
+            "auc": 0.9959538578987122
+        },
+        "config": {
+            "learning_rate": 0.0005,
+            "dropout_rates": [
+                0.5,
+                0.4,
+                0.3
+            ],
+            "layer_sizes": [
+                512,
+                256,
+                128
+            ],
+            "batch_size": 32
+        },
+        "model_path": "saved_models\\model_45.h5"
+    },
+    {
+        "model_id": 47,
+        "metrics": {
+            "loss": 0.06754282861948013,
+            "accuracy": 0.9767441749572754,
+            "auc": 0.9957543611526489
+        },
+        "config": {
+            "learning_rate": 0.0005,
+            "dropout_rates": [
+                0.5,
+                0.4,
+                0.3
+            ],
+            "layer_sizes": [
+                512,
+                256,
+                128
+            ],
+            "batch_size": 128
+        },
+        "model_path": "saved_models\\model_47.h5"
+    },
+    {
+        "model_id": 22,
+        "metrics": {
+            "loss": 0.08983499556779861,
+            "accuracy": 0.9651162624359131,
+            "auc": 0.9956893920898438
+        },
+        "config": {
+            "learning_rate": 0.001,
+            "dropout_rates": [
+                0.5,
+                0.4,
+                0.3
+            ],
+            "layer_sizes": [
+                256,
+                128,
+                64
+            ],
+            "batch_size": 64
+        },
+        "model_path": "saved_models\\model_22.h5"
+    },
+    {
+        "model_id": 12,
+        "metrics": {
+            "loss": 0.11012543737888336,
+            "accuracy": 0.9627906680107117,
+            "auc": 0.9951556921005249
+        },
+        "config": {
+            "learning_rate": 0.001,
+            "dropout_rates": [
+                0.4,
+                0.3,
+                0.2
+            ],
+            "layer_sizes": [
+                256,
+                128,
+                64
+            ],
+            "batch_size": 32
+        },
+        "model_path": "saved_models\\model_12.h5"
+    },
+    {
+        "model_id": 5,
+        "metrics": {
+            "loss": 0.0410001315176487,
+            "accuracy": 0.9930232763290405,
+            "auc": 0.9951056838035583
+        },
+        "config": {
+            "learning_rate": 0.001,
+            "dropout_rates": [
+                0.3,
+                0.2,
+                0.1
+            ],
+            "layer_sizes": [
+                256,
+                128,
+                64
+            ],
+            "batch_size": 128
+        },
+        "model_path": "saved_models\\model_5.h5"
+    },
+    {
+        "model_id": 1,
+        "metrics": {
+            "loss": 0.12740691006183624,
+            "accuracy": 0.945348858833313,
+            "auc": 0.9947764873504639
+        },
+        "config": {
+            "learning_rate": 0.001,
+            "dropout_rates": [
+                0.3,
+                0.2,
+                0.1
+            ],
+            "layer_sizes": [
+                512,
+                256,
+                128
+            ],
+            "batch_size": 64
+        },
+        "model_path": "saved_models\\model_1.h5"
+    },
+    {
+        "model_id": 4,
+        "metrics": {
+            "loss": 0.06871959567070007,
+            "accuracy": 0.9883720874786377,
+            "auc": 0.9943274259567261
+        },
+        "config": {
+            "learning_rate": 0.001,
+            "dropout_rates": [
+                0.3,
+                0.2,
+                0.1
+            ],
+            "layer_sizes": [
+                256,
+                128,
+                64
+            ],
+            "batch_size": 64
+        },
+        "model_path": "saved_models\\model_4.h5"
+    },
+    {
+        "model_id": 37,
+        "metrics": {
+            "loss": 0.08840985596179962,
+            "accuracy": 0.9709302186965942,
+            "auc": 0.9932247996330261
+        },
+        "config": {
+            "learning_rate": 0.0005,
+            "dropout_rates": [
+                0.4,
+                0.3,
+                0.2
+            ],
+            "layer_sizes": [
+                512,
+                256,
+                128
+            ],
+            "batch_size": 64
+        },
+        "model_path": "saved_models\\model_37.h5"
+    },
+    {
+        "model_id": 62,
+        "metrics": {
+            "loss": 0.16448631882667542,
+            "accuracy": 0.9546511769294739,
+            "auc": 0.9931250810623169
+        },
+        "config": {
+            "learning_rate": 0.0001,
+            "dropout_rates": [
+                0.3,
+                0.2,
+                0.1
+            ],
+            "layer_sizes": [
+                1024,
+                512,
+                256
+            ],
+            "batch_size": 128
+        },
+        "model_path": "saved_models\\model_62.h5"
+    },
+    {
+        "model_id": 40,
+        "metrics": {
+            "loss": 0.10201670974493027,
+            "accuracy": 0.9616279006004333,
+            "auc": 0.993030309677124
+        },
+        "config": {
+            "learning_rate": 0.0005,
+            "dropout_rates": [
+                0.4,
+                0.3,
+                0.2
+            ],
+            "layer_sizes": [
+                256,
+                128,
+                64
+            ],
+            "batch_size": 64
+        },
+        "model_path": "saved_models\\model_40.h5"
+    },
+    {
+        "model_id": 29,
+        "metrics": {
+            "loss": 0.037652596831321716,
+            "accuracy": 0.9965116381645203,
+            "auc": 0.9929255247116089
+        },
+        "config": {
+            "learning_rate": 0.0005,
+            "dropout_rates": [
+                0.3,
+                0.2,
+                0.1
+            ],
+            "layer_sizes": [
+                512,
+                256,
+                128
+            ],
+            "batch_size": 128
+        },
+        "model_path": "saved_models\\model_29.h5"
+    },
+    {
+        "model_id": 69,
+        "metrics": {
+            "loss": 0.1155860424041748,
+            "accuracy": 0.9697674512863159,
+            "auc": 0.992850661277771
+        },
+        "config": {
+            "learning_rate": 0.0001,
+            "dropout_rates": [
+                0.4,
+                0.3,
+                0.2
+            ],
+            "layer_sizes": [
+                1024,
+                512,
+                256
+            ],
+            "batch_size": 32
+        },
+        "model_path": "saved_models\\model_69.h5"
+    },
+    {
+        "model_id": 17,
+        "metrics": {
+            "loss": 0.08813155442476273,
+            "accuracy": 0.9709302186965942,
+            "auc": 0.9926909804344177
+        },
+        "config": {
+            "learning_rate": 0.001,
+            "dropout_rates": [
+                0.4,
+                0.3,
+                0.2
+            ],
+            "layer_sizes": [
+                1024,
+                512,
+                256
+            ],
+            "batch_size": 128
+        },
+        "model_path": "saved_models\\model_17.h5"
+    },
+    {
+        "model_id": 7,
+        "metrics": {
+            "loss": 0.21615822613239288,
+            "accuracy": 0.8767442107200623,
+            "auc": 0.9926809668540955
+        },
+        "config": {
+            "learning_rate": 0.001,
+            "dropout_rates": [
+                0.3,
+                0.2,
+                0.1
+            ],
+            "layer_sizes": [
+                1024,
+                512,
+                256
+            ],
+            "batch_size": 64
+        },
+        "model_path": "saved_models\\model_7.h5"
+    },
+    {
+        "model_id": 60,
+        "metrics": {
+            "loss": 0.07340580224990845,
+            "accuracy": 0.9860464930534363,
+            "auc": 0.9923965930938721
+        },
+        "config": {
+            "learning_rate": 0.0001,
+            "dropout_rates": [
+                0.3,
+                0.2,
+                0.1
+            ],
+            "layer_sizes": [
+                1024,
+                512,
+                256
+            ],
+            "batch_size": 32
+        },
+        "model_path": "saved_models\\model_60.h5"
+    },
+    {
+        "model_id": 49,
+        "metrics": {
+            "loss": 0.1526503562927246,
+            "accuracy": 0.9372093081474304,
+            "auc": 0.9920374751091003
+        },
+        "config": {
+            "learning_rate": 0.0005,
+            "dropout_rates": [
+                0.5,
+                0.4,
+                0.3
+            ],
+            "layer_sizes": [
+                256,
+                128,
+                64
+            ],
+            "batch_size": 64
+        },
+        "model_path": "saved_models\\model_49.h5"
+    },
+    {
+        "model_id": 54,
+        "metrics": {
+            "loss": 0.07487072050571442,
+            "accuracy": 0.9860464930534363,
+            "auc": 0.9918229579925537
+        },
+        "config": {
+            "learning_rate": 0.0001,
+            "dropout_rates": [
+                0.3,
+                0.2,
+                0.1
+            ],
+            "layer_sizes": [
+                512,
+                256,
+                128
+            ],
+            "batch_size": 32
+        },
+        "model_path": "saved_models\\model_54.h5"
+    },
+    {
+        "model_id": 14,
+        "metrics": {
+            "loss": 0.0663503035902977,
+            "accuracy": 0.9825581312179565,
+            "auc": 0.9916682243347168
+        },
+        "config": {
+            "learning_rate": 0.001,
+            "dropout_rates": [
+                0.4,
+                0.3,
+                0.2
+            ],
+            "layer_sizes": [
+                256,
+                128,
+                64
+            ],
+            "batch_size": 128
+        },
+        "model_path": "saved_models\\model_14.h5"
+    },
+    {
+        "model_id": 61,
+        "metrics": {
+            "loss": 0.10504850000143051,
+            "accuracy": 0.9790697693824768,
+            "auc": 0.9913588762283325
+        },
+        "config": {
+            "learning_rate": 0.0001,
+            "dropout_rates": [
+                0.3,
+                0.2,
+                0.1
+            ],
+            "layer_sizes": [
+                1024,
+                512,
+                256
+            ],
+            "batch_size": 64
+        },
+        "model_path": "saved_models\\model_61.h5"
+    },
+    {
+        "model_id": 63,
+        "metrics": {
+            "loss": 0.1515044867992401,
+            "accuracy": 0.9476743936538696,
+            "auc": 0.9913190603256226
+        },
+        "config": {
+            "learning_rate": 0.0001,
+            "dropout_rates": [
+                0.4,
+                0.3,
+                0.2
+            ],
+            "layer_sizes": [
+                512,
+                256,
+                128
+            ],
+            "batch_size": 32
+        },
+        "model_path": "saved_models\\model_63.h5"
+    },
+    {
+        "model_id": 10,
+        "metrics": {
+            "loss": 0.06031578406691551,
+            "accuracy": 0.9872093200683594,
+            "auc": 0.9911394119262695
+        },
+        "config": {
+            "learning_rate": 0.001,
+            "dropout_rates": [
+                0.4,
+                0.3,
+                0.2
+            ],
+            "layer_sizes": [
+                512,
+                256,
+                128
+            ],
+            "batch_size": 64
+        },
+        "model_path": "saved_models\\model_10.h5"
+    },
+    {
+        "model_id": 35,
+        "metrics": {
+            "loss": 0.1239641085267067,
+            "accuracy": 0.9441860318183899,
+            "auc": 0.9911245107650757
+        },
+        "config": {
+            "learning_rate": 0.0005,
+            "dropout_rates": [
+                0.3,
+                0.2,
+                0.1
+            ],
+            "layer_sizes": [
+                1024,
+                512,
+                256
+            ],
+            "batch_size": 128
+        },
+        "model_path": "saved_models\\model_35.h5"
+    },
+    {
+        "model_id": 56,
+        "metrics": {
+            "loss": 0.13963773846626282,
+            "accuracy": 0.9662790894508362,
+            "auc": 0.9910845160484314
+        },
+        "config": {
+            "learning_rate": 0.0001,
+            "dropout_rates": [
+                0.3,
+                0.2,
+                0.1
+            ],
+            "layer_sizes": [
+                512,
+                256,
+                128
+            ],
+            "batch_size": 128
+        },
+        "model_path": "saved_models\\model_56.h5"
+    },
+    {
+        "model_id": 2,
+        "metrics": {
+            "loss": 0.08043362945318222,
+            "accuracy": 0.9813953638076782,
+            "auc": 0.9907552003860474
+        },
+        "config": {
+            "learning_rate": 0.001,
+            "dropout_rates": [
+                0.3,
+                0.2,
+                0.1
+            ],
+            "layer_sizes": [
+                512,
+                256,
+                128
+            ],
+            "batch_size": 128
+        },
+        "model_path": "saved_models\\model_2.h5"
+    },
+    {
+        "model_id": 28,
+        "metrics": {
+            "loss": 0.04978635534644127,
+            "accuracy": 0.9930232763290405,
+            "auc": 0.9898771643638611
+        },
+        "config": {
+            "learning_rate": 0.0005,
+            "dropout_rates": [
+                0.3,
+                0.2,
+                0.1
+            ],
+            "layer_sizes": [
+                512,
+                256,
+                128
+            ],
+            "batch_size": 64
+        },
+        "model_path": "saved_models\\model_28.h5"
+    },
+    {
+        "model_id": 53,
+        "metrics": {
+            "loss": 0.07685913890600204,
+            "accuracy": 0.9779070019721985,
+            "auc": 0.9898720979690552
+        },
+        "config": {
+            "learning_rate": 0.0005,
+            "dropout_rates": [
+                0.5,
+                0.4,
+                0.3
+            ],
+            "layer_sizes": [
+                1024,
+                512,
+                256
+            ],
+            "batch_size": 128
+        },
+        "model_path": "saved_models\\model_53.h5"
+    },
+    {
+        "model_id": 57,
+        "metrics": {
+            "loss": 0.19950664043426514,
+            "accuracy": 0.9337209463119507,
+            "auc": 0.9898372292518616
+        },
+        "config": {
+            "learning_rate": 0.0001,
+            "dropout_rates": [
+                0.3,
+                0.2,
+                0.1
+            ],
+            "layer_sizes": [
+                256,
+                128,
+                64
+            ],
+            "batch_size": 32
+        },
+        "model_path": "saved_models\\model_57.h5"
+    },
+    {
+        "model_id": 78,
+        "metrics": {
+            "loss": 0.09840463101863861,
+            "accuracy": 0.9732558131217957,
+            "auc": 0.9897624850273132
+        },
+        "config": {
+            "learning_rate": 0.0001,
+            "dropout_rates": [
+                0.5,
+                0.4,
+                0.3
+            ],
+            "layer_sizes": [
+                1024,
+                512,
+                256
+            ],
+            "batch_size": 32
+        },
+        "model_path": "saved_models\\model_78.h5"
+    },
+    {
+        "model_id": 41,
+        "metrics": {
+            "loss": 0.11408159881830215,
+            "accuracy": 0.9639534950256348,
+            "auc": 0.9894431233406067
+        },
+        "config": {
+            "learning_rate": 0.0005,
+            "dropout_rates": [
+                0.4,
+                0.3,
+                0.2
+            ],
+            "layer_sizes": [
+                256,
+                128,
+                64
+            ],
+            "batch_size": 128
+        },
+        "model_path": "saved_models\\model_41.h5"
+    },
+    {
+        "model_id": 64,
+        "metrics": {
+            "loss": 0.18167898058891296,
+            "accuracy": 0.9372093081474304,
+            "auc": 0.9894081354141235
+        },
+        "config": {
+            "learning_rate": 0.0001,
+            "dropout_rates": [
+                0.4,
+                0.3,
+                0.2
+            ],
+            "layer_sizes": [
+                512,
+                256,
+                128
+            ],
+            "batch_size": 64
+        },
+        "model_path": "saved_models\\model_64.h5"
+    },
+    {
+        "model_id": 79,
+        "metrics": {
+            "loss": 0.14080768823623657,
+            "accuracy": 0.9546511769294739,
+            "auc": 0.9893133640289307
+        },
+        "config": {
+            "learning_rate": 0.0001,
+            "dropout_rates": [
+                0.5,
+                0.4,
+                0.3
+            ],
+            "layer_sizes": [
+                1024,
+                512,
+                256
+            ],
+            "batch_size": 64
+        },
+        "model_path": "saved_models\\model_79.h5"
+    },
+    {
+        "model_id": 48,
+        "metrics": {
+            "loss": 0.10669111460447311,
+            "accuracy": 0.9674418568611145,
+            "auc": 0.9869336485862732
+        },
+        "config": {
+            "learning_rate": 0.0005,
+            "dropout_rates": [
+                0.5,
+                0.4,
+                0.3
+            ],
+            "layer_sizes": [
+                256,
+                128,
+                64
+            ],
+            "batch_size": 32
+        },
+        "model_path": "saved_models\\model_48.h5"
+    },
+    {
+        "model_id": 38,
+        "metrics": {
+            "loss": 0.11559280008077621,
+            "accuracy": 0.9755814075469971,
+            "auc": 0.9867190718650818
+        },
+        "config": {
+            "learning_rate": 0.0005,
+            "dropout_rates": [
+                0.4,
+                0.3,
+                0.2
+            ],
+            "layer_sizes": [
+                512,
+                256,
+                128
+            ],
+            "batch_size": 128
+        },
+        "model_path": "saved_models\\model_38.h5"
+    },
+    {
+        "model_id": 55,
+        "metrics": {
+            "loss": 0.09701229631900787,
+            "accuracy": 0.9732558131217957,
+            "auc": 0.9859408140182495
+        },
+        "config": {
+            "learning_rate": 0.0001,
+            "dropout_rates": [
+                0.3,
+                0.2,
+                0.1
+            ],
+            "layer_sizes": [
+                512,
+                256,
+                128
+            ],
+            "batch_size": 64
+        },
+        "model_path": "saved_models\\model_55.h5"
+    },
+    {
+        "model_id": 32,
+        "metrics": {
+            "loss": 0.08701613545417786,
+            "accuracy": 0.9825581312179565,
+            "auc": 0.9846386909484863
+        },
+        "config": {
+            "learning_rate": 0.0005,
+            "dropout_rates": [
+                0.3,
+                0.2,
+                0.1
+            ],
+            "layer_sizes": [
+                256,
+                128,
+                64
+            ],
+            "batch_size": 128
+        },
+        "model_path": "saved_models\\model_32.h5"
+    },
+    {
+        "model_id": 50,
+        "metrics": {
+            "loss": 0.15571944415569305,
+            "accuracy": 0.9441860318183899,
+            "auc": 0.9842894077301025
+        },
+        "config": {
+            "learning_rate": 0.0005,
+            "dropout_rates": [
+                0.5,
+                0.4,
+                0.3
+            ],
+            "layer_sizes": [
+                256,
+                128,
+                64
+            ],
+            "batch_size": 128
+        },
+        "model_path": "saved_models\\model_50.h5"
+    },
+    {
+        "model_id": 80,
+        "metrics": {
+            "loss": 0.20288026332855225,
+            "accuracy": 0.9232558012008667,
+            "auc": 0.9830620884895325
+        },
+        "config": {
+            "learning_rate": 0.0001,
+            "dropout_rates": [
+                0.5,
+                0.4,
+                0.3
+            ],
+            "layer_sizes": [
+                1024,
+                512,
+                256
+            ],
+            "batch_size": 128
+        },
+        "model_path": "saved_models\\model_80.h5"
+    },
+    {
+        "model_id": 72,
+        "metrics": {
+            "loss": 0.2621786594390869,
+            "accuracy": 0.9139534831047058,
+            "auc": 0.9770103693008423
+        },
+        "config": {
+            "learning_rate": 0.0001,
+            "dropout_rates": [
+                0.5,
+                0.4,
+                0.3
+            ],
+            "layer_sizes": [
+                512,
+                256,
+                128
+            ],
+            "batch_size": 32
+        },
+        "model_path": "saved_models\\model_72.h5"
+    },
+    {
+        "model_id": 65,
+        "metrics": {
+            "loss": 0.2516140043735504,
+            "accuracy": 0.9046511650085449,
+            "auc": 0.9752641320228577
+        },
+        "config": {
+            "learning_rate": 0.0001,
+            "dropout_rates": [
+                0.4,
+                0.3,
+                0.2
+            ],
+            "layer_sizes": [
+                512,
+                256,
+                128
+            ],
+            "batch_size": 128
+        },
+        "model_path": "saved_models\\model_65.h5"
+    },
+    {
+        "model_id": 58,
+        "metrics": {
+            "loss": 0.26512712240219116,
+            "accuracy": 0.8965116143226624,
+            "auc": 0.9691924452781677
+        },
+        "config": {
+            "learning_rate": 0.0001,
+            "dropout_rates": [
+                0.3,
+                0.2,
+                0.1
+            ],
+            "layer_sizes": [
+                256,
+                128,
+                64
+            ],
+            "batch_size": 64
+        },
+        "model_path": "saved_models\\model_58.h5"
+    },
+    {
+        "model_id": 73,
+        "metrics": {
+            "loss": 0.27484944462776184,
+            "accuracy": 0.9116278886795044,
+            "auc": 0.9635797142982483
+        },
+        "config": {
+            "learning_rate": 0.0001,
+            "dropout_rates": [
+                0.5,
+                0.4,
+                0.3
+            ],
+            "layer_sizes": [
+                512,
+                256,
+                128
+            ],
+            "batch_size": 64
+        },
+        "model_path": "saved_models\\model_73.h5"
+    },
+    {
+        "model_id": 66,
+        "metrics": {
+            "loss": 0.3478895425796509,
+            "accuracy": 0.8627907037734985,
+            "auc": 0.9578921794891357
+        },
+        "config": {
+            "learning_rate": 0.0001,
+            "dropout_rates": [
+                0.4,
+                0.3,
+                0.2
+            ],
+            "layer_sizes": [
+                256,
+                128,
+                64
+            ],
+            "batch_size": 32
+        },
+        "model_path": "saved_models\\model_66.h5"
+    },
+    {
+        "model_id": 59,
+        "metrics": {
+            "loss": 0.28756093978881836,
+            "accuracy": 0.8988372087478638,
+            "auc": 0.9553776979446411
+        },
+        "config": {
+            "learning_rate": 0.0001,
+            "dropout_rates": [
+                0.3,
+                0.2,
+                0.1
+            ],
+            "layer_sizes": [
+                256,
+                128,
+                64
+            ],
+            "batch_size": 128
+        },
+        "model_path": "saved_models\\model_59.h5"
+    },
+    {
+        "model_id": 74,
+        "metrics": {
+            "loss": 0.32654887437820435,
+            "accuracy": 0.8674418330192566,
+            "auc": 0.9429299831390381
+        },
+        "config": {
+            "learning_rate": 0.0001,
+            "dropout_rates": [
+                0.5,
+                0.4,
+                0.3
+            ],
+            "layer_sizes": [
+                512,
+                256,
+                128
+            ],
+            "batch_size": 128
+        },
+        "model_path": "saved_models\\model_74.h5"
+    },
+    {
+        "model_id": 67,
+        "metrics": {
+            "loss": 0.3685251772403717,
+            "accuracy": 0.8465116024017334,
+            "auc": 0.939452588558197
+        },
+        "config": {
+            "learning_rate": 0.0001,
+            "dropout_rates": [
+                0.4,
+                0.3,
+                0.2
+            ],
+            "layer_sizes": [
+                256,
+                128,
+                64
+            ],
+            "batch_size": 64
+        },
+        "model_path": "saved_models\\model_67.h5"
+    },
+    {
+        "model_id": 68,
+        "metrics": {
+            "loss": 0.38136738538742065,
+            "accuracy": 0.8569767475128174,
+            "auc": 0.9290703535079956
+        },
+        "config": {
+            "learning_rate": 0.0001,
+            "dropout_rates": [
+                0.4,
+                0.3,
+                0.2
+            ],
+            "layer_sizes": [
+                256,
+                128,
+                64
+            ],
+            "batch_size": 128
+        },
+        "model_path": "saved_models\\model_68.h5"
+    },
+    {
+        "model_id": 75,
+        "metrics": {
+            "loss": 0.464997798204422,
+            "accuracy": 0.7825581431388855,
+            "auc": 0.9044991731643677
+        },
+        "config": {
+            "learning_rate": 0.0001,
+            "dropout_rates": [
+                0.5,
+                0.4,
+                0.3
+            ],
+            "layer_sizes": [
+                256,
+                128,
+                64
+            ],
+            "batch_size": 32
+        },
+        "model_path": "saved_models\\model_75.h5"
+    },
+    {
+        "model_id": 76,
+        "metrics": {
+            "loss": 0.48404258489608765,
+            "accuracy": 0.7709302306175232,
+            "auc": 0.9007922410964966
+        },
+        "config": {
+            "learning_rate": 0.0001,
+            "dropout_rates": [
+                0.5,
+                0.4,
+                0.3
+            ],
+            "layer_sizes": [
+                256,
+                128,
+                64
+            ],
+            "batch_size": 64
+        },
+        "model_path": "saved_models\\model_76.h5"
+    },
+    {
+        "model_id": 77,
+        "metrics": {
+            "loss": 0.4838745594024658,
+            "accuracy": 0.7837209105491638,
+            "auc": 0.8700795769691467
+        },
+        "config": {
+            "learning_rate": 0.0001,
+            "dropout_rates": [
+                0.5,
+                0.4,
+                0.3
+            ],
+            "layer_sizes": [
+                256,
+                128,
+                64
+            ],
+            "batch_size": 128
+        },
+        "model_path": "saved_models\\model_77.h5"
+    }
+]
