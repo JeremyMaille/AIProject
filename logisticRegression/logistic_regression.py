@@ -15,7 +15,7 @@ from sklearn.metrics import (
 # ------------------------------------------
 # DATA LOADING AND PREPARATION
 # ------------------------------------------
-merged_data = pd.read_csv("final_merged_data_with_work_metrics_delete.csv")
+merged_data = pd.read_csv("../datas/final_merged_data_with_work_metrics_delete.csv")
 y = merged_data["Attrition"]
 X = merged_data.drop(columns=["Attrition", "EmployeeID"])
 scaler = StandardScaler()
