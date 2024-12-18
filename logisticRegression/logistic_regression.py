@@ -20,8 +20,9 @@ y = merged_data["Attrition"]
 X = merged_data.drop(columns=["Attrition", "EmployeeID"])
 scaler = StandardScaler()
 X_scaled = scaler.fit_transform(X)
+total_test_size = 1446  
 X_train, X_test, y_train, y_test = train_test_split(
-    X_scaled, y, test_size=0.2, random_state=42
+    X_scaled, y, test_size=total_test_size / len(X_scaled), random_state=42
 )
 
 # ------------------------------------------
@@ -101,17 +102,16 @@ test_accuracies = []
 loss_train_values = []
 loss_test_values = []
 
-for fraction in np.linspace(0.1, 1.0, 10):
-    X_partial = X_train[:int(fraction * len(X_train))]
-    y_partial = y_train[:int(fraction * len(y_train))]
+epochs = range(0, 50, 2)  
+for epoch in epochs:
+    model = LogisticRegression(max_iter=epoch, random_state=42)
+    model.fit(X_train, y_train)
 
-    model.fit(X_partial, y_partial)
+    y_partial_pred = model.predict(X_train)
+    y_partial_pred_prob = model.predict_proba(X_train)[:, 1]
 
-    y_partial_pred = model.predict(X_partial)
-    y_partial_pred_prob = model.predict_proba(X_partial)[:, 1]
-
-    train_accuracies.append(accuracy_score(y_partial, y_partial_pred))
-    loss_train_values.append(log_loss(y_partial, y_partial_pred_prob))
+    train_accuracies.append(accuracy_score(y_train, y_partial_pred))
+    loss_train_values.append(log_loss(y_train, y_partial_pred_prob))
 
     y_test_pred = model.predict(X_test)
     y_test_pred_prob = model.predict_proba(X_test)[:, 1]
@@ -120,27 +120,27 @@ for fraction in np.linspace(0.1, 1.0, 10):
     loss_test_values.append(log_loss(y_test, y_test_pred_prob))
 
 plt.figure(figsize=(10, 6))
-plt.plot(np.linspace(0.1, 1.0, 10), loss_train_values, label="Train Loss", marker="o")
-plt.plot(np.linspace(0.1, 1.0, 10), loss_test_values, label="Test Loss", marker="o")
-plt.title("Training and Test Log Loss")
-plt.xlabel("Fraction of Training Data Used")
+plt.plot(epochs, loss_train_values, label="Train Loss", marker="o")
+plt.plot(epochs, loss_test_values, label="Test Loss", marker="o")
+plt.title("Training and Test Log Loss over Epochs")
+plt.xlabel("Epochs")
 plt.ylabel("Log Loss")
 plt.ylim(0, 1)
 plt.legend()
 plt.grid()
-plt.savefig("graphique/log_loss_curve.png")
+plt.savefig("graphique/log_loss_curve_epochs.png")
 plt.show()
 
 plt.figure(figsize=(10, 6))
-plt.plot(np.linspace(0.1, 1.0, 10), train_accuracies, label="Train Accuracy", marker="o")
-plt.plot(np.linspace(0.1, 1.0, 10), test_accuracies, label="Test Accuracy", marker="o")
-plt.title("Training and Test Accuracy")
-plt.xlabel("Fraction of Training Data Used")
+plt.plot(epochs, train_accuracies, label="Train Accuracy", marker="o")
+plt.plot(epochs, test_accuracies, label="Test Accuracy", marker="o")
+plt.title("Training and Test Accuracy over Epochs")
+plt.xlabel("Epochs")
 plt.ylabel("Accuracy")
 plt.ylim(0, 1)
 plt.legend()
 plt.grid()
-plt.savefig("graphique/accuracy_curve.png")
+plt.savefig("graphique/accuracy_curve_epochs.png")
 plt.show()
 
 # ------------------------------------------

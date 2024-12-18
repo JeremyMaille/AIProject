@@ -57,44 +57,49 @@ joblib.dump(scaler, "scaler.pkl")
 joblib.dump(poly, "poly_features.pkl")
 
 # ------------------------------------------
-# LEARNING CURVE: LOSS AND ACCURACY
+# LEARNING CURVE: LOSS AND ACCURACY WITH EPOCHS
 # ------------------------------------------
 loss_train = []
 loss_test = []
 accuracy_train = []
 accuracy_test = []
 
-for i in range(1, 11):
-    best_model.fit(X_train[:i * len(X_train) // 10], y_train[:i * len(y_train) // 10])
-    y_train_pred_prob = best_model.predict_proba(X_train)[:, 1]
-    y_test_pred_prob = best_model.predict_proba(X_test)[:, 1]
+epochs = np.arange(0, 50, 2)  
+for epoch in epochs:
+    model = LogisticRegression(max_iter=epoch, random_state=42, **grid_search.best_params_)
+    model.fit(X_train, y_train)
+    
+    y_train_pred_prob = model.predict_proba(X_train)[:, 1]
+    y_test_pred_prob = model.predict_proba(X_test)[:, 1]
+    
     loss_train.append(log_loss(y_train, y_train_pred_prob))
     loss_test.append(log_loss(y_test, y_test_pred_prob))
-    accuracy_train.append(accuracy_score(y_train, best_model.predict(X_train)))
-    accuracy_test.append(accuracy_score(y_test, best_model.predict(X_test)))
+    
+    accuracy_train.append(accuracy_score(y_train, model.predict(X_train)))
+    accuracy_test.append(accuracy_score(y_test, model.predict(X_test)))
 
 plt.figure(figsize=(10, 6))
-plt.plot(range(1, 11), loss_train, label="Train Loss", marker="o")
-plt.plot(range(1, 11), loss_test, label="Test Loss", marker="o")
+plt.plot(epochs, loss_train, label="Train Loss", marker="o")
+plt.plot(epochs, loss_test, label="Test Loss", marker="o")
 plt.title("Loss Curve for Training and Test")
-plt.xlabel("Fraction of Training Data Used")
+plt.xlabel("Epochs")
 plt.ylabel("Log Loss")
 plt.ylim(0, 1)
 plt.legend()
 plt.grid()
-plt.savefig("graphique/loss_train_test_curve.png")
+plt.savefig("graphique/loss_curve_epochs.png")
 plt.show()
 
 plt.figure(figsize=(10, 6))
-plt.plot(range(1, 11), accuracy_train, label="Train Accuracy", marker="o")
-plt.plot(range(1, 11), accuracy_test, label="Test Accuracy", marker="o")
+plt.plot(epochs, accuracy_train, label="Train Accuracy", marker="o")
+plt.plot(epochs, accuracy_test, label="Test Accuracy", marker="o")
 plt.title("Accuracy Curve for Training and Test")
-plt.xlabel("Fraction of Training Data Used")
+plt.xlabel("Epochs")
 plt.ylabel("Accuracy")
 plt.ylim(0, 1)
 plt.legend()
 plt.grid()
-plt.savefig("graphique/accuracy_train_test_curve.png")
+plt.savefig("graphique/accuracy_curve_epochs.png")
 plt.show()
 
 # ------------------------------------------
