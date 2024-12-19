@@ -1,3 +1,6 @@
+# ------------------------------------------
+# IMPORTING REQUIRED LIBRARIES
+# ------------------------------------------
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
@@ -11,7 +14,9 @@ import os
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 
-# Preprocess Data
+# ------------------------------------------
+# DATA PREPROCESSING FUNCTION
+# ------------------------------------------
 def preprocess_data(file_path):
     data = pd.read_csv("datas\\final_merged_data.csv")
     data.columns = data.columns.str.strip()
@@ -40,7 +45,9 @@ def preprocess_data(file_path):
 
     return X_train, X_test, y_train, y_test, scaler
 
-# Create Model
+# ------------------------------------------
+# MODEL CREATION FUNCTION
+# ------------------------------------------
 def create_model(input_dim):
     model = Sequential([
         Dense(256, input_dim=input_dim, activation='relu'),
@@ -63,7 +70,9 @@ def create_model(input_dim):
 
     return model
 
-# Train Multiple Models
+# ------------------------------------------
+# TRAIN MULTIPLE MODELS FUNCTION
+# ------------------------------------------
 def train_multiple_models(file_path, num_models=100, epochs=50):
     X_train, X_test, y_train, y_test, scaler = preprocess_data(file_path)
     
@@ -92,12 +101,13 @@ def train_multiple_models(file_path, num_models=100, epochs=50):
         results.append({'model': model, 'accuracy': accuracy, 'history': history.history})
         models.append(model)
 
-    # Sort models by accuracy
     results.sort(key=lambda x: x['accuracy'], reverse=True)
 
     return results[:5], X_train.shape[1]
 
-# Plot Evolution
+# ------------------------------------------
+# PLOT TOP MODELS FUNCTION
+# ------------------------------------------
 def plot_top_models(results):
     fig, ax = plt.subplots(2, 1, figsize=(10, 8))
 
@@ -120,20 +130,19 @@ def plot_top_models(results):
     plt.savefig('top_models_evolution.png')
     plt.show()
 
-# Main Function
+# ------------------------------------------
+# MAIN FUNCTION
+# ------------------------------------------
 def main():
     os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
     file_path = '/mnt/data/final_merged_data.csv'
 
-    # Train multiple models
     top_results, input_dim = train_multiple_models(file_path, num_models=100, epochs=50)
 
-    # Save the best models
     for i, result in enumerate(top_results):
         result['model'].save(f'best_model_{i + 1}.h5')
 
-    # Plot the evolution of top models
     plot_top_models(top_results)
 
 if __name__ == "__main__":
